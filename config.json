@@ -1,0 +1,12 @@
+{
+  "prefix": ".",
+  "logChannel": "logs",
+  "memberRole": "Spooke's member",
+  "recruitcolor": "#ff0000",
+  "RolesOnJoin": ["Spooke's member", "Officerr"],
+  "RolesMsgs": [
+    " \n**Welcome To Seraphim Discord Server**\n\n**Things you need to know before you apply to join Seraphim**\n\n✦ Basic knowledge of English is required to join the guild\n✦ Seraphim is for players who are interested in PvE and Life Skills\n✦ 'NO' Node/ Seige Wars (but you can enjoy other PvP aspects e.g. Red Battlefield, Arena, War Hero System)\n✦ GvG declaration requests are not accepted\n✦ Payout is distributed based on your guild activities [e.g Guild Mission Participation]",
+    "__**Congratulations you've been.**__"
+  ],
+  "reason": "Thank you for choosing us!\nPlease state your the nature of your contact and we will get back to you shortly!"
+}
