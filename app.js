@@ -43,7 +43,7 @@ app.get("/", (request, response) => {
   }, 280000);
 
 //reset
-client.on('message', msg => {
+/*client.on('message', msg => {
     let short = msg.content.toLowerCase();
 
     if (msg.content.startsWith(".reset")) {
@@ -59,9 +59,9 @@ client.on('message', msg => {
     })
   }
 });
-
+*/
 //clear
-client.on('message', async message => {
+/*client.on('message', async message => {
    // const prefix = "!";
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
@@ -80,13 +80,35 @@ client.on('message', async message => {
       function Purge(num) {
         message.channel.bulkDelete(num).catch(error => console.log('error deleted messages'));
     }
-  });
+  });*/
 
 //invite name
 client.on('ready', () => {
   // "ready" isn't really ready. We need to wait a spell.
-  wait(1000);
+ // wait(1000);
+client.on('ready', function() {
+  console.log(`Bot has started, with ${client.users.size} users, ${client.guilds.size} guilds.`); 
+      setInterval(async () => {
+    const statuslist = [
+     ` ${client.guilds.size} Server`,
+     ` ${client.users.size} Users`,
 
+    ]
+    const random = Math.floor(Math.random() * statuslist.length);
+    try {
+      await client.user.setPresence({
+        game: {
+          name: `${statuslist[random]}`, 
+          type: "WATCHING",
+          url: 'https://www.twitch.tv'
+        },
+        status: "idle"
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }, 40000);
+});
   // Load all invites for all guilds and save them to the cache.
   client.guilds.forEach(g => {
     g.fetchInvites().then(guildInvites => {
@@ -101,29 +123,45 @@ client.on('guildMemberAdd', member => {
     invites[member.guild.id] = guildInvites;
     const invite = guildInvites.find(i => ei.get(i.code).uses < i.uses);
     const inviter = client.users.get(invite.inviter.id);
-    const logChannel = member.guild.channels.find(channel => channel.name === "welcome");
+    const logChannel = member.guild.channels.find(channel => channel.name === "modlog");
     logChannel.send(`> **${member}** joined using invite code **${invite.code}** from **${inviter.username}**. Invite was used **${invite.uses}** times since its creation.`);
   });
 });
 
 
 // Welcome Message
-client.on('guildMemberAdd',  (member) => {
+/*client.on('guildMemberAdd',  (member) => {
         member.guild.channels.get("640380830656626709").send(member + " Joined **Disaster Headquarter ♛** Discord");
-    console.log('User ' + member.user.username + 'has joined the server!')
+  //  console.log('User ' + member.user.username + 'has joined the server!')
     var role = member.guild.roles.find(role => role.name === "Spooke's member");
     member.addRole(role);  
-});
+});*/
 
-//Leaver Server
-var welcomeCH = client.channels.get('640380830656626709');
-client.on("guildMemberRemove", (member) => {
-    var welcomeCH = client.channels.get('640380830656626709');
+//var welcomeCH = client.channels.get('640380830656626709', '630376825968656394');
+client.on("guildMemberAdd", (member) => {
+   const welcomeCH = member.guild.channels.find(channel => channel.name === "welcome");
+   // var welcomeCH = client.channels.get('640380830656626709');
     var embed = {
         color: 0xc40000,
         author: {
-            name: `${member.displayName} Left The Server`,
-            icon_url: 'https://i.imgur.com/mccBW1P.png'
+            name: `${member.displayName} Joined the ${member.guild.name} discord server!`,
+            icon_url: 'https://imgur.com/8mn0UkD.png'
+        }
+    };
+    welcomeCH.send({
+        embed
+    });
+});
+
+//Leaver Server
+//var welcomeCH = client.channels.get('640380830656626709', '630376825968656394');
+client.on("guildMemberRemove", (member) => {
+    const welcomeCH = member.guild.channels.find(channel => channel.name === "welcome");
+    var embed = {
+        color: 0xc40000,
+        author: {
+            name: `${member.displayName} left the ${member.guild.name} discord server!`,
+            icon_url: 'https://imgur.com/iNOSxa2.png'
         }
     };
     welcomeCH.send({
@@ -132,7 +170,7 @@ client.on("guildMemberRemove", (member) => {
 });
 
 // If Memeber GoT Banned
-var welcomeCH = client.channels.get('604855006432198656');
+/*var welcomeCH = client.channels.get('604855006432198656');
 client.on("guildBanAdd", (guild, user) => {
     var welcomeCH = client.channels.get('604855006432198656');
     var embed = {
@@ -146,7 +184,7 @@ client.on("guildBanAdd", (guild, user) => {
         embed
     });
 });
-
+*/
 
 //Responses for Hello 
 const helloResponses = ["Hello", "Hi", "Hi there"];
@@ -166,7 +204,7 @@ client.on('message', function (message) {
 });
 
 // send message to role on join
-client.on("guildMemberUpdate", (oldMember, newMember) => {
+/*client.on("guildMemberUpdate", (oldMember, newMember) => {
 	if (newMember.user.bot) return;
 	for (var i = 0; i < config.RolesOnJoin.length; i++) {
 		var Role = newMember.guild.roles.find(role => role.name === config.RolesOnJoin[i]);
@@ -177,7 +215,7 @@ client.on("guildMemberUpdate", (oldMember, newMember) => {
 			newMember.send("<@" + newMember.user.id + ">" + msgToSend);
 		}
 	}
-});
+});*/
 
 client.on('message', message => {
     if (!message.guild) return;
@@ -204,6 +242,6 @@ client.on('ready', () => {
   console.log(allGuilds);
 })
 
-client.on('ready', () => {
+/*client.on('ready', () => {
     client.user.setActivity("Seraphim | .join")
-})
+})*/
