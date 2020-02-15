@@ -42,73 +42,6 @@ app.get("/", (request, response) => {
 	http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
   }, 280000);
 
-//reset
-/*client.on('message', msg => {
-    let short = msg.content.toLowerCase();
-
-    if (msg.content.startsWith(".reset")) {
-  if (msg.author.id !== "201460488037466112" && msg.author.id !== "201460488037466112") return msg.channel.send(` **Sorry Only Bot Owner Can Use This Command** :sunglasses: `)
-  var embed = new Discord.RichEmbed()
-  .setTitle('Done.')
-  .setDescription(`⚠ **Rebooting Streamer bot.., check log to know when ready.**`)
-  .setColor('FFFF00');
-       console.log(`${msg.author.tag} rebooted me`)
-    msg.channel.send(embed).then(() => {
-      client.destroy()
-      process.exit(1);
-    })
-  }
-});
-*/
-//clear
-/*client.on('message', async message => {
-   // const prefix = "!";
-    const args = message.content.slice(prefix.length).trim().split(/ +/g);
-    const command = args.shift().toLowerCase();
-    if (message.author.bot) return;
-    if (message.content.indexOf(prefix) !== 0) return;
-    if (command === 'clear') {
-        if (message.member.roles.find(role => role.name === "Owner Spooke")) {
-            if (args[0]) {
-                message.delete();
-                Purge(args[0]);
-            } else {
-                message.reply("Write how many message you want to delete")
-            }
-        }
-    }
-      function Purge(num) {
-        message.channel.bulkDelete(num).catch(error => console.log('error deleted messages'));
-    }
-  });*/
-
-//invite name
-client.on('ready', () => {
-  // "ready" isn't really ready. We need to wait a spell.
- // wait(1000);
-client.on('ready', function() {
-  console.log(`Bot has started, with ${client.users.size} users, ${client.guilds.size} guilds.`); 
-      setInterval(async () => {
-    const statuslist = [
-     ` ${client.guilds.size} Server`,
-     ` ${client.users.size} Users`,
-
-    ]
-    const random = Math.floor(Math.random() * statuslist.length);
-    try {
-      await client.user.setPresence({
-        game: {
-          name: `${statuslist[random]}`, 
-          type: "WATCHING",
-          url: 'https://www.twitch.tv'
-        },
-        status: "idle"
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  }, 40000);
-});
   // Load all invites for all guilds and save them to the cache.
   client.guilds.forEach(g => {
     g.fetchInvites().then(guildInvites => {
@@ -127,15 +60,6 @@ client.on('guildMemberAdd', member => {
     logChannel.send(`> **${member}** joined using invite code **${invite.code}** from **${inviter.username}**. Invite was used **${invite.uses}** times since its creation.`);
   });
 });
-
-
-// Welcome Message
-/*client.on('guildMemberAdd',  (member) => {
-        member.guild.channels.get("640380830656626709").send(member + " Joined **Disaster Headquarter ♛** Discord");
-  //  console.log('User ' + member.user.username + 'has joined the server!')
-    var role = member.guild.roles.find(role => role.name === "Spooke's member");
-    member.addRole(role);  
-});*/
 
 //var welcomeCH = client.channels.get('640380830656626709', '630376825968656394');
 client.on("guildMemberAdd", (member) => {
@@ -169,23 +93,6 @@ client.on("guildMemberRemove", (member) => {
     });
 });
 
-// If Memeber GoT Banned
-/*var welcomeCH = client.channels.get('604855006432198656');
-client.on("guildBanAdd", (guild, user) => {
-    var welcomeCH = client.channels.get('604855006432198656');
-    var embed = {
-        color: 0xc40000,
-        author: {
-            name: `${user.username} Banned From Server`,
-            icon_url: 'https://i.imgur.com/x80iq22.png'
-        }
-    };
-    welcomeCH.send({
-        embed
-    });
-});
-*/
-
 //Responses for Hello 
 const helloResponses = ["Hello", "Hi", "Hi there"];
 // The onMessage event handler
@@ -202,20 +109,6 @@ client.on('message', function (message) {
             break;
     }
 });
-
-// send message to role on join
-/*client.on("guildMemberUpdate", (oldMember, newMember) => {
-	if (newMember.user.bot) return;
-	for (var i = 0; i < config.RolesOnJoin.length; i++) {
-		var Role = newMember.guild.roles.find(role => role.name === config.RolesOnJoin[i]);
-		var msgToSend = config.RolesMsgs[i];
-		if (!Role || !msgToSend) return;
-		if (!oldMember.roles.find(role => role.name === Role.name) && newMember.roles.find(role => role.name === Role.name)) {
-
-			newMember.send("<@" + newMember.user.id + ">" + msgToSend);
-		}
-	}
-});*/
 
 client.on('message', message => {
     if (!message.guild) return;
@@ -242,6 +135,6 @@ client.on('ready', () => {
   console.log(allGuilds);
 })
 
-/*client.on('ready', () => {
+client.on('ready', () => {
     client.user.setActivity("Seraphim | .join")
-})*/
+})
